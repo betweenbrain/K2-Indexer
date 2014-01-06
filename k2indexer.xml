@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5"
+         type="plugin"
+         group="system"
+         method="upgrade">
+	<name>System - K2 Indexer</name>
+	<author>Matt Thomas</author>
+	<creationDate>January 6, 2014</creationDate>
+	<copyright>2014 Matt Thomas</copyright>
+	<license>GPL 2.0</license>
+	<authorEmail></authorEmail>
+	<authorUrl>http://www.betweenbrain.com</authorUrl>
+	<version>1.0</version>
+	<description></description>
+	<files>
+		<filename plugin="k2indexer">k2indexer.php</filename>
+	</files>
+</install>
