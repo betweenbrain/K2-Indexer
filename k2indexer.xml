@@ -11,7 +11,11 @@
 	<authorEmail></authorEmail>
 	<authorUrl>http://www.betweenbrain.com</authorUrl>
 	<version>1.0</version>
-	<description></description>
+	<description>
+		<![CDATA[
+		To trigger this plugin, simply add indexk2=[tags|categories]&category=[catID] to the URL when logged into the backend of your Joomla website, where <code>catID</code> is the ID of the K2 category to index and <code>indexk2</code> needs to be either "tags" or "categories" to indicate what to index (e.g. <code>administrator/index.php?indexk2=categories&category=7</code>)
+		]]>
+	</description>
 	<files>
 		<filename plugin="k2indexer">k2indexer.php</filename>
 	</files>
