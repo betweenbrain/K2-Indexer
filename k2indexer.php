@@ -84,8 +84,7 @@ class plgSystemK2indexer extends JPlugin
 
 		$query = 'SELECT catid
 			FROM ' . $this->db->nameQuote('#__k2_items') . '
-			WHERE Id = ' . $this->db->Quote($id) . '
-			AND published = 1';
+			WHERE Id = ' . $this->db->Quote($id);
 
 		$this->db->setQuery($query);
 		$catIds[] = $this->db->loadResult();
