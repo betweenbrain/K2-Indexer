@@ -202,7 +202,7 @@ class plgSystemK2indexer extends JPlugin
 	/**
 	 * Checks for any database errors after running a query
 	 *
-	 * @throws Exception
+	 * @param null $backtrace
 	 */
 	private function checkDbError($backtrace = null)
 	{
