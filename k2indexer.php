@@ -31,7 +31,7 @@ class plgSystemK2indexer extends JPlugin
 
 			foreach ($ids as $id)
 			{
-				echo '<pre>Indexing ' . $type . ' item ' . $id . '</pre><br/>';
+				JFactory::getApplication()->enqueueMessage('Indexing ' . $type . ' item ' . $id);
 				$function = 'get' . $type;
 				$items    = $this->$function($id);
 				$this->setExtraFieldsSearchData($id, $items);
