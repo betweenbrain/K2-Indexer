@@ -97,11 +97,11 @@ class plgSystemK2indexer extends JPlugin
 
 		$query = "CREATE TABLE IF NOT EXISTS `jos_k2_search_soundex` (
 					`id`           INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-					`itemId`           INT(11)       NOT NULL,
-					`word`         TEXT             NOT NULL,
-					`soundex`         TEXT             NOT NULL,
+					`itemId`       INT(11)          NOT NULL,
+					`word`         varchar(64)      NOT NULL,
+					`soundex`      varchar(5)       NOT NULL,
 					PRIMARY KEY (`id`),
-					UNIQUE KEY (`soundex`(4))
+					UNIQUE KEY (`word`(64))
 				)
 					ENGINE =MyISAM
 					AUTO_INCREMENT =0
