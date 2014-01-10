@@ -122,7 +122,8 @@ class plgSystemK2indexer extends JPlugin
 			foreach ($titleParts as $part)
 			{
 				// Strip non-alpha characters as we are dealing with language
-				$part = preg_replace("/[^A-ZA-z]/ui", '', $part);
+				$part = preg_replace("/[^\w]/ui", '',
+					preg_replace("/[0-9]/", '',$part));
 				if ($part)
 				{
 					$query = 'INSERT INTO ' . $this->db->nameQuote('#__k2_search_soundex') . '
