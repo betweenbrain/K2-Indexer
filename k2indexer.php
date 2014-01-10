@@ -29,13 +29,21 @@ class plgSystemK2indexer extends JPlugin
 		{
 			$ids = $this->getItemIds(JRequest::getVar('category'));
 
-			foreach ($ids as $id)
+			if ($type === "soundex")
 			{
-				JFactory::getApplication()->enqueueMessage('Indexing ' . $type . ' item ' . $id);
-				$function = 'get' . $type;
-				$items    = $this->$function($id);
-				$this->setExtraFieldsSearchData($id, $items);
-				$this->setpluginsData($id, $items, $type);
+				$this->setSoundex($ids);
+			}
+			else
+			{
+
+				foreach ($ids as $id)
+				{
+					JFactory::getApplication()->enqueueMessage('Indexing ' . $type . ' item ' . $id);
+					$function = 'get' . $type;
+					$items    = $this->$function($id);
+					$this->setExtraFieldsSearchData($id, $items);
+					$this->setpluginsData($id, $items, $type);
+				}
 			}
 		}
 	}
@@ -70,6 +78,55 @@ class plgSystemK2indexer extends JPlugin
 		$this->checkDbError();
 
 		return $tags;
+	}
+
+	private function setSoundex($ids)
+	{
+
+		$query = "CREATE TABLE IF NOT EXISTS `jos_k2_search_soundex` (
+					`id`           INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+					`itemId`           INT(11)       NOT NULL,
+					`word`         TEXT             NOT NULL,
+					`soundex`         TEXT             NOT NULL,
+					PRIMARY KEY (`id`),
+					UNIQUE KEY (`soundex`(4))
+				)
+					ENGINE =MyISAM
+					AUTO_INCREMENT =0
+					DEFAULT CHARSET =utf8;";
+		$this->db->setQuery($query);
+		$this->db->query();
+		$this->checkDbError();
+
+		foreach ($ids as $id)
+		{
+			$query = 'SELECT ' . $this->db->nameQuote('title') . '
+							FROM ' . $this->db->nameQuote('#__k2_items') . '
+							WHERE ' . $this->db->nameQuote('id') . ' = ' . $this->db->Quote($id) . '';
+
+			$this->db->setQuery($query);
+			$title      = $this->db->loadResult();
+			$titleParts = explode(' ', $title);
+			foreach ($titleParts as $part)
+			{
+				// Strip non-alpha characters as we are dealing with language
+				$part = preg_replace("/[^A-ZA-z]/ui", '', $part);
+				if ($part)
+				{
+					$query = 'INSERT INTO ' . $this->db->nameQuote('#__k2_search_soundex') . '
+						(' . $this->db->nameQuote('itemId') . ',
+						' . $this->db->nameQuote('word') . ',
+						' . $this->db->nameQuote('soundex') . ')
+						VALUES (' . $this->db->Quote($id) . ',
+						' . $this->db->Quote($part) . ',
+						' . $this->db->Quote(soundex($part)) . ')';
+					$this->db->setQuery($query);
+					$this->db->query();
+					JFactory::getApplication()->enqueueMessage('Soundexing ' . $part);
+					$this->checkDbError();
+				}
+			}
+		}
 	}
 
 	/**
