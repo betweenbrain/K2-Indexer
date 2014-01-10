@@ -67,6 +67,13 @@ class plgSystemK2indexer extends JPlugin
 		$this->checkDbError();
 	}
 
+	/**
+	 * Gets the IDs of all items in the designated category
+	 *
+	 * @param $categoryId
+	 *
+	 * @return mixed
+	 */
 	private function getItemIds($categoryId)
 	{
 		$query = 'SELECT id
@@ -80,6 +87,11 @@ class plgSystemK2indexer extends JPlugin
 		return $tags;
 	}
 
+	/**
+	 * Sets the soundex value of each word of the titles belonging to the items in the designated category
+	 *
+	 * @param $ids
+	 */
 	private function setSoundex($ids)
 	{
 
