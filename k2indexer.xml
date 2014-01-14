@@ -13,7 +13,8 @@
 	<version>1.0</version>
 	<description>
 		<![CDATA[
-		To trigger this plugin, simply add indexk2=[tags|categories]&category=[catID] to the URL when logged into the backend of your Joomla website, where <code>catID</code> is the ID of the K2 category to index and <code>indexk2</code> needs to be either "tags" or "categories" to indicate what to index (e.g. <code>administrator/index.php?indexk2=categories&category=7</code>)
+		This plugin adds K2 search data en masse.
+		To trigger this plugin, simply add indexk2=[tags|categories|soundex]&category=[catID] to the URL when logged into the backend of your Joomla website, where <code>catID</code> is the ID of the K2 category to index and <code>indexk2</code> needs to be either "tags", "categories", or "soundex" to indicate what to index (e.g. <code>administrator/index.php?indexk2=categories&category=7</code>)
 		]]>
 	</description>
 	<files>
